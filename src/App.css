@@ -1,0 +1,350 @@
+/* ── RESET & BASE ─────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #0d2137 100%);
+  min-height: 100vh;
+  color: #1a1a2e;
+}
+
+/* ── LAYOUT ───────────────────────────────────────────── */
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* Card now has navy gradient background */
+.wizard-card {
+  background: linear-gradient(160deg, #1a3a5c 0%, #0d2137 60%, #0a1628 100%);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glowing top accent bar */
+.wizard-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2563a8, #60a5fa, #2563a8);
+}
+
+/* Subtle inner glow effect */
+.wizard-card::after {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(37,99,168,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── HEADER ───────────────────────────────────────────── */
+.wizard-header {
+  margin-bottom: 1.5rem;
+}
+
+.wizard-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.wizard-subtitle {
+  font-size: 13px;
+  color: #93c5fd;
+  margin-top: 3px;
+}
+
+/* ── PROGRESS BAR ─────────────────────────────────────── */
+.progress-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.progress-item:last-child {
+  flex: 0;
+}
+
+.progress-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.4);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  border-color: #60a5fa;
+  background: linear-gradient(135deg, #2563a8, #3b82f6);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(96,165,250,0.5);
+}
+
+.progress-dot.done {
+  border-color: #34d399;
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(52,211,153,0.4);
+}
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  margin: 0 6px;
+  transition: background 0.3s ease;
+}
+
+.progress-line.done {
+  background: linear-gradient(90deg, #059669, #10b981);
+}
+
+/* ── STEP HEADING ─────────────────────────────────────── */
+.step-heading {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.step-description {
+  font-size: 14px;
+  color: #93c5fd;
+  margin-bottom: 1.5rem;
+}
+
+/* ── FIELDS ───────────────────────────────────────────── */
+.field {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #bfdbfe;
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+
+/* Inputs styled with semi-transparent navy */
+input {
+  padding: 11px 14px;
+  font-size: 15px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.2s ease;
+  color: #ffffff;
+  background: rgba(255,255,255,0.08);
+}
+
+input::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+input:focus {
+  border-color: #60a5fa;
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 4px rgba(96,165,250,0.15);
+}
+
+input.input-error {
+  border-color: #f87171;
+  background: rgba(248,113,113,0.08);
+}
+
+/* Date input icon color fix */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.error-msg {
+  font-size: 12px;
+  color: #f87171;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ── BUTTONS ──────────────────────────────────────────── */
+.btn-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 1.75rem;
+}
+
+button {
+  padding: 11px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563a8, #3b82f6);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(59,130,246,0.4);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.55);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.08);
+  color: #bfdbfe;
+  border: 1.5px solid rgba(255,255,255,0.2);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-1px);
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(16,185,129,0.4);
+}
+
+.btn-submit:hover {
+  background: linear-gradient(135deg, #047857, #059669);
+  box-shadow: 0 6px 20px rgba(16,185,129,0.55);
+  transform: translateY(-1px);
+}
+
+/* ── REVIEW SCREEN ────────────────────────────────────── */
+.review-section {
+  margin-bottom: 1.25rem;
+}
+
+.review-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #60a5fa;
+  margin-bottom: 8px;
+}
+
+.review-grid {
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.05);
+}
+
+.review-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 14px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.review-row:last-child {
+  border-bottom: none;
+}
+
+.review-label {
+  color: #93c5fd;
+  font-weight: 500;
+}
+
+.review-value {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ── SUCCESS SCREEN ───────────────────────────────────── */
+.success-card {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 8px 24px rgba(16,185,129,0.45);
+}
+
+.success-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.success-subtitle {
+  font-size: 14px;
+  color: #93c5fd;
+  line-height: 1.6;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 480px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+  .wizard-card {
+    padding: 1.75rem;
+  }
+}
