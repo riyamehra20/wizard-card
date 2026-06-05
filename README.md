@@ -6,7 +6,7 @@ A multi-step onboarding form built with React, designed for SaaS and FinTech app
 
 ##  Live Demo
 
-> Hosted on Vercel: [registration-wizard.vercel.app](https://registration-wizard.vercel.app)
+> Hosted on Vercel: [https://wizard-card.vercel.app/](https://wizard-card.vercel.app/)
 
 ---
 
